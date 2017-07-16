@@ -1,12 +1,16 @@
 ## Document/Notes Representation
 Previous research provides code for representing these documents as bag-of-words vectors [1].   
-In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training
+In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
+
+(note: for the final model, here we could use POS tagging, parsing and entity recognition)
 
 ## ICD9-codes
 Related previous work don't use all ICD9-code but only the most used. [2] [3]
 *	We identify the top 20 labels based on number of patients with that label. 
 *	We then remove all patients who don’t have at least one of these labels,  
-*	and then filter the set of labels for each patient to only include these labels.
+*	and then filter the set of labels for each patient to only include these labels.   
+
+(note: for the final model, do we consider the code's description and/or hierarchy?)
 
 ## Baseline Model
 A neural network (not Recurrent) with one hidden layer, with relu activation on the hidden layer and sigmoid activation on the output layer.   Using cross entropy loss,which is the loss functions for multilabel classification [4]   
