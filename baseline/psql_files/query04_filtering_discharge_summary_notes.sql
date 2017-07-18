@@ -10,6 +10,6 @@ group by ICD9_CODE  order by subjects_qty
 desc  limit 20) as icd9_subject_list)
 group by HADM_ID ) as dianoses_top20_icd
 ON (noteevents.HADM_ID = dianoses_top20_icd.HADM_ID)
-where noteevents.category = 'Discharge summary'  and noteevents.DESCRIPTION = 'Report'
-LIMIT 5;
+where noteevents.category = 'Discharge summary'  and noteevents.DESCRIPTION = 'Report';
+
 
