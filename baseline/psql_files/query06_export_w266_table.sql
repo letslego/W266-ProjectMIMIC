@@ -1,0 +1,1 @@
+select * from W266_DISCHARGE_NOTE_ICD9_CODES;
