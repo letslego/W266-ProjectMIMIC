@@ -5,10 +5,17 @@ In particular, it takes the 10,000 tokens with the largest tf-idf scores from th
 (note: for the final model, here we could use POS tagging, parsing and entity recognition)
 
 ## ICD9-codes
-Related previous work don't use all ICD9-code but only the most used. [2] [3]
+
+The DIAGNOSES_ICD table contains the ICD9-codes assigned to a hospital admission. There could be many ICD9-codes assigned to one admission.
+There are 57,786 admission in this table, with a total of 651,047 ICD9-codes assigned.
+
+Related previous research didn't work with all ICD9-codes but only with the most used in diagnoses reports[2] [3]. We will not consider ICD9-codes that start with "E" (additional information indicating the cause of injury or adverse event) nor "V" (codes used when the visit is due to circumstances other than disease or injury, e.g.: new born to indicate birth status)   
+
 *	We identify the top 20 labels based on number of patients with that label. 
-*	We then remove all patients who donâ€™t have at least one of these labels,  
+*	We then remove all patients who don’t have at least one of these labels,  
 *	and then filter the set of labels for each patient to only include these labels.   
+
+As a result, we get 45,293 admissions with 152,299 icd9-codes (only including the ones in the top 20)
 
 (note: for the final model, do we consider the code's description and/or hierarchy?)
 
