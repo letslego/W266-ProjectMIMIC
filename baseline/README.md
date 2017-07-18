@@ -29,7 +29,15 @@ The baseline will  ONLY  use the 'Discharge Summary' clinical notes. (note: we m
 
 An example of one discharge summary note can be found at: baseline/psql_files/discharge_note_sample.out
 
-
+It looks like the discharge summary can have Addendum, we will not include Addendums for the baseline
+```
+mimic=# select category, description  from noteevents  where category = 'Discharge summary' group by category, description;
+     category      | description
+-------------------+-------------
+ Discharge summary | Report
+ Discharge summary | Addendum
+(2 rows)
+```
 Previous research represents this documents as bag-of-words vectors [1]. In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
 
 (note for the final model: we could use here POS tagging, parsing and entity recognition)
