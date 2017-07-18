@@ -44,6 +44,41 @@ Related previous research didn't work with all ICD9-codes but only with the most
 
 As a result, we get 45,293 admissions with 152,299 icd9-codes (only including the ones in the top 20)
 
+Here is the list of the top 20 ICD9-codes that will be used in the baseline
+
+```
+select icd9_code, COUNT(DISTINCT SUBJECT_ID) subjects_qty 
+from diagnoses_icd  where SUBSTRING(icd9_code from 1 for 1) != 'V' 
+group by icd9_code order by subjects_qty  
+desc  limit 20;
+
+icd9_code | icd9_q
+-----------+--------
+ 4019      |  17613
+ 41401     |  10775
+ 42731     |  10271
+ 4280      |   9843
+ 5849      |   7687
+ 2724      |   7465
+ 25000     |   7370
+ 51881     |   6719
+ 5990      |   5779
+ 2720      |   5335
+ 53081     |   5272
+ 2859      |   4993
+ 486       |   4423
+ 2851      |   4241
+ 2762      |   4177
+ 2449      |   3819
+ 496       |   3592
+ 99592     |   3560
+ 0389      |   3433
+ 5070      |   3396
+(20 rows)
+
+
+```
+
 (note: for the final model, do we consider the code's description and/or hierarchy?)
 
 ## Baseline Model
