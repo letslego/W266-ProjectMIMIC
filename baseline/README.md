@@ -1,18 +1,45 @@
 ## Document/Notes Representation
-Previous research provides code for representing these documents as bag-of-words vectors [1].   
-In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
 
-(note: for the final model, here we could use POS tagging, parsing and entity recognition)
+The clinical notes related to an admission are located in the NOTEEVENTS and ADMISSION tables.
+The ADMISSION table has only one type of clinical note, the one related to the preliminary diagnoses done during admission.
+The NOTEEVENTS contains all the other type of clinical notes, here is a list of these types
+```
+mimic=# select category from noteevents group by category;
+     category
+-------------------
+ ECG
+ Respiratory
+ Discharge summary
+ Radiology
+ Rehab Services
+ Nursing/other
+ Nutrition
+ Pharmacy
+ Social Work
+ Case Management
+ Physician
+ General
+ Nursing
+ Echo
+ Consult
+(15 rows)
+
+``` 
+The baseline will use ONLY the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
+
+Previous research represents this documents as bag-of-words vectors [1]. In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
+
+(note for the final model: we could use here POS tagging, parsing and entity recognition)
 
 ## ICD9-codes
 
 The DIAGNOSES_ICD table contains the ICD9-codes assigned to a hospital admission. There could be many ICD9-codes assigned to one admission.
-There are 57,786 admission in this table, with a total of 651,047 ICD9-codes assigned.
+There are 57,786 admissions in this table, with a total of 651,047 ICD9-codes assigned.
 
 Related previous research didn't work with all ICD9-codes but only with the most used in diagnoses reports[2] [3]. We will not consider ICD9-codes that start with "E" (additional information indicating the cause of injury or adverse event) nor "V" (codes used when the visit is due to circumstances other than disease or injury, e.g.: new born to indicate birth status)   
 
 *	We identify the top 20 labels based on number of patients with that label. 
-*	We then remove all patients who don’t have at least one of these labels,  
+*	We then remove all patients who donâ€™t have at least one of these labels,  
 *	and then filter the set of labels for each patient to only include these labels.   
 
 As a result, we get 45,293 admissions with 152,299 icd9-codes (only including the ones in the top 20)
