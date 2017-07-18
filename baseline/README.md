@@ -55,7 +55,7 @@ from diagnoses_icd  where SUBSTRING(icd9_code from 1 for 1) != 'V'
 group by icd9_code order by subjects_qty  
 desc  limit 20;
 
-icd9_code | icd9_q
+ icd9_code | subjects_qty
 -----------+--------
  4019      |  17613
  41401     |  10775
