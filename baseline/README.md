@@ -25,7 +25,10 @@ mimic=# select category from noteevents group by category;
 (15 rows)
 
 ``` 
-The baseline will use ONLY the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
+The baseline will  ONLY  use the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
+
+An example of one discharge summary note can be found at: baseline/psql_files/discharge_note_sample.out
+
 
 Previous research represents this documents as bag-of-words vectors [1]. In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
 
@@ -79,7 +82,7 @@ icd9_code | icd9_q
 
 ```
 
-The file containing the list of admissions resulting of the filtering above is in this file: psql_files\diagnoses_icd_codes.csv
+The file containing the list of admissions resulting of the filtering above is in this file: baseline\psql_files\diagnoses_icd_codes.csv
 
 Here is the sql that created that file
 
