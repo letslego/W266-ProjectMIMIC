@@ -157,7 +157,7 @@ https://drive.google.com/drive/folders/0B-km8EaXYphsbmNsbEJKS1RMams
 
 the file is about 474 MB
 
-
+## Representing clinical notes for the baseline
 
 Previous research represents this documents as bag-of-words vectors [1]. In particular, it takes the 10,000 tokens with the largest tf-idf scores from the training.   
 
