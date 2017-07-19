@@ -63,7 +63,7 @@ group by hadm_id;
 
 (note: for the final model, do we consider the code's description and/or hierarchy?)
 
-## Document/Notes Representation
+## Clinical Notes
 
 The clinical notes related to an admission are located in the NOTEEVENTS and ADMISSION tables.
 The ADMISSION table has only one type of clinical note, the one related to the preliminary diagnoses done during admission.
@@ -91,8 +91,8 @@ mimic=# select category from noteevents group by category;
 
 ``` 
 The baseline will  ONLY  use the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
-
 An example of one discharge summary note can be found at: baseline/psql_files/discharge_note_sample.out
+
 
 It looks like the discharge summary can have Addendum, we will not include Addendums for the baseline
 ```
@@ -103,6 +103,28 @@ mimic=# select category, description  from noteevents  where category = 'Dischar
  Discharge summary | Addendum
 (2 rows)
 ```
+
+It looks like there are duplicates entries for some admissions, for example, 
+```
+mimic=# select HADM_ID, SUBJECT_ID, CHARTDATE, CGID, ISERROR, substring(TEXT from 1 for 20)
+mimic-# from noteevents
+mimic-# where HADM_ID = '178053' and noteevents.category = 'Discharge summary'   and noteevents.DESCRIPTION = 'Report';
+
+ hadm_id | subject_id |      chartdate      | cgid | iserror |      substring
+---------+------------+---------------------+------+---------+----------------------
+  178053 |      18976 | 2120-11-28 00:00:00 |      |         | Admission Date:  [**
+  178053 |      18976 | 2120-11-28 00:00:00 |      |         | Admission Date:  [**
+  178053 |      18976 | 2120-12-16 00:00:00 |      |         | Admission Date:  [**
+  178053 |      18976 | 2120-12-16 00:00:00 |      |         | Admission Date:  [**
+  178053 |      18976 | 2120-11-26 00:00:00 |      |         | Admission Date:  [**
+
+(5 rows)
+```
+in this case the clinical notes are different, seems the did multiple entries for the same discharge, and the discharge happened in two different dates with the same admission_id (that looks like a mistake since a patient returning should get a new admission_id)
+
+We will handle this situation for the final model.
+
+##  Joining information from the clinical notes and the corresponding ICD9 codes
 
 This is the sql statement that created a table with a join from the discharge summary notes and its ICD_CODES that are in the top 20.
 ```
