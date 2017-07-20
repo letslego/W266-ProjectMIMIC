@@ -17,11 +17,12 @@ class NNLM(object):
 
         
     @with_self_graph
-    def SetParams(self,  Hidden_dims, learning_rate, vocabulary_size):
+    def SetParams(self,  Hidden_dims, learning_rate, vocabulary_size, y_dim):
         # Model structure; these need to be fixed for a given model.
         self.Hidden_dims = Hidden_dims
         self.learning_rate = learning_rate
-        self.V =vocabulary_size
+        self.V =vocabulary_size  
+        self.y_dim = y_dim
         
     @with_self_graph    
     def affine_layer(self, hidden_dim, x, seed=0):
@@ -40,11 +41,11 @@ class NNLM(object):
     @with_self_graph
     def BuildCoreGraph(self):
         self.x = tf.placeholder(tf.float32, shape=[None, self.V])
-        self.target_y = tf.placeholder(tf.float32, shape=[None])
+        self.target_y = tf.placeholder(tf.float32, shape=[None,None])
         
         z = self.fully_connected_layers(self.x)        
         
-        self.y_logit = tf.squeeze(self.affine_layer(1,z))
+        self.y_logit = tf.squeeze(self.affine_layer(self.y_dim,z))
         self.y_hat = tf.sigmoid(self.y_logit)  
      
         self.loss = tf.reduce_mean (tf.nn.sigmoid_cross_entropy_with_logits(labels=self.target_y, logits=self.y_logit))
