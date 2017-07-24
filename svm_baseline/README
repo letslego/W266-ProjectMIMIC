@@ -9,8 +9,6 @@ II. Raw dataset description
 III. Data preparation
 IV. Hierarchical and flat SVM training and testing
 V. Evaluation
-VI. License
-
 
 ===================================================================
 
@@ -56,7 +54,7 @@ hierarchy.
 
 III. Data preparation
 
-There exists a script in the data/svm_data directory called
+There exists a script in the data directory called
 "contruct_datasets.py".  This script takes several optional arguments,
 but if you do not have a replacement stopword list, corpus, or icd9
 tree, then it can be called without any parameters and the defaults
