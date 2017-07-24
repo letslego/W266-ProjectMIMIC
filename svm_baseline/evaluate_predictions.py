@@ -1,20 +1,6 @@
 #!/usr/bin/env python
-########################################################
-## Code for the following paper:
-## 
-## Adler Perotte, Rimma Pivovarov, Karthik Natarajan, Nicole Weiskopf, Frank Wood, Noemie Elhadad
-## Diagnosis Code Assignment: Models and Evaluation Metrics, JAMIA, to apper
-## 
-## Columbia University
-## Biomedical Informatics
-## Author: Adler Perotte
-##
-########################################################
-
 import argparse
 import numpy as np
-## This svm light library is packed with this code, but can also be
-## obtained here: https://bitbucket.org/wcauchois/pysvmlight
 import svmlight
 import os
 import pylab

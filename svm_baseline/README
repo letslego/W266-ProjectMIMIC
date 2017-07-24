@@ -153,8 +153,7 @@ The 2 scripts for the hierarchical SVM are called train_hsvm.py and
 test_hsvm.py.  Again, there is no need to pass this script any
 parameters unless you would like to customize the workflow.
 
-To replicate the results of the Perotte et al. paper, first run
-train_hsvm.py then test_hsvm.py followed by train_fsvm.py and then
+First run train_hsvm.py then test_hsvm.py followed by train_fsvm.py and then
 test_fsvm.py.  test_hsvm.py and test_fsvm.py create each create files
 that contain their respective predictions (hsvm_predictions.data and
 fsvm_predictions.data).  These files will be important later for the
