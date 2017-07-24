@@ -184,11 +184,11 @@ TPs = np.array(TPs,np.float)
 
 print "Baseline statistics considering hierarchy:"
 print "Recall/Sensitivity"
-recall = stats.nanmean(np.where(TPs+FNs>0,TPs/(TPs+FNs),0))
+recall = np.nanmean(np.where(TPs+FNs>0,TPs/(TPs+FNs),0))
 print recall
 
 print "Precision"
-precision = stats.nanmean(np.where(TPs+FPs>0,TPs/(TPs+FPs),0))
+precision = np.nanmean(np.where(TPs+FPs>0,TPs/(TPs+FPs),0))
 print precision
 
 print "F1"
@@ -230,11 +230,11 @@ TPs = np.array(TPs,np.float)
 
 print "Baseline statistics ignoring hierarchy (only exact gold-standard matches count as true positives):"
 print "Recall/Sensitivity"
-recall = stats.nanmean(np.where(TPs+FNs>0,TPs/(TPs+FNs),0))
+recall = np.nanmean(np.where(TPs+FNs>0,TPs/(TPs+FNs),0))
 print recall
 
 print "Precision"
-precision = stats.nanmean(np.where(TPs+FPs>0,TPs/(TPs+FPs),0))
+precision = np.nanmean(np.where(TPs+FPs>0,TPs/(TPs+FPs),0))
 print precision
 
 print "F1"
