@@ -1,0 +1,40 @@
+# This file is for writing baseline statistics
+===============================================
+
+Baseline statistics considering hierarchy:
+Recall/Sensitivity
+0.300753949848
+Precision
+0.576950245676
+F1
+0.395395319147
+
+Baseline statistics ignoring hierarchy (only exact gold-standard matches count as true positives):
+Recall/Sensitivity
+0.233387063527
+Precision
+0.107037014754
+F1
+0.146764322244
+
+Data for Normalized Divergent Path to Gold-Standard
+(array([ 5742.,  2083.,   379.,  3257.,   757.,  1378.,  3816.,  4217.,
+        2919.,  1507.]), array([ 0.        ,  0.08333333,  0.16666667,  0.25      ,  0.33333333,
+        0.41666667,  0.5       ,  0.58333333,  0.66666667,  0.75      ,
+        0.83333333]), <a list of 10 Patch objects>)
+Data for Normalized Divergent Path to Predicted
+(array([ 8133.,   874.,   954.,   860.,   751.,  1696.,   667.,   360.,
+         111.]), array([ 0. ,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9]), <a list of 9 Patch objects>)
+Data for Shared Path
+(array([    0.,  1635.,  7028.,  4407.,  3789.,  3091.,  3819.,  2259.,
+          27.]), array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), <a list of 9 Patch objects>)
+Data for Divergent Path to Gold-Standard
+(array([ 5742.,  2468.,  4011.,  4631.,  5629.,  3472.,   102.,     0.,
+           0.]), array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), <a list of 9 Patch objects>)
+Data for Divergent Path to Predicted
+(array([  8.13300000e+03,   1.67600000e+03,   1.66200000e+03,
+         1.54800000e+03,   9.83000000e+02,   4.01000000e+02,
+         3.00000000e+00,   0.00000000e+00,   0.00000000e+00]), array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), <a list of 9 Patch objects>)
+
+
+
