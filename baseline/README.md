@@ -163,13 +163,15 @@ Previous research represents this documents as bag-of-words vectors [1]. In part
 
 (note for the final model: we could use here POS tagging, parsing and entity recognition)
 
-## Baseline Model
+## Basic Baseline Model
+For the basic baseline, we make a fixed prediction corresponding to the top 4 ICD-9 codes for all records
+
+## NN Baseline Model
 A neural network (not Recurrent) with one hidden layer, with relu activation on the hidden layer and sigmoid activation on the output layer.   Using cross entropy loss,which is the loss functions for multilabel classification [4]   
    
-(note: not sure what will go in each cell for a recurrent network, one paper uses the last 20 notes for each admission and feeds one note to each cell.. but if we use just the discharge summary, then we could feed a sentence to each cell, or a word.. but that would be too many cells... something to consider later on)
 
 ## Evaluation
-rank loss metric to evaluate performance [3] or F1 score [2] .. or both  (not sure yet)
+rank loss metric to evaluate performance [3] and F1 score [2] 
 
 ## References
 [1] Diagnosis code assignment: models and evaluation metrics. Journal of the American Medical Informatics   
