@@ -49,6 +49,7 @@ desc  limit 20;
 ```
 
 The file containing the list of admissions resulting of the filtering above is in this file: baseline\psql_files\diagnoses_icd_codes.csv
+(note: we removed all files containing MIMIC data because they need authorization by MIMIC to access)
 
 Here is the sql that created that file
 
@@ -92,6 +93,7 @@ mimic=# select category from noteevents group by category;
 ``` 
 The baseline will  ONLY  use the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
 An example of one discharge summary note can be found at: baseline/psql_files/discharge_note_sample.out
+(we removde all data related files since they need granted authorization by MIMIC)
 
 
 It looks like the discharge summary can have Addendum, we will not include Addendums for the baseline
@@ -151,9 +153,6 @@ ON W266_DISCHARGE_NOTE_ICD9_CODES(HADM_ID) ;
 
 
 ```
-
-The table has been exported to a CSV file and uploaded to this google drive: (it did not fit in github)
-https://drive.google.com/drive/folders/0B-km8EaXYphsbmNsbEJKS1RMams
 
 the file is about 474 MB
 
