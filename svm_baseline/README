@@ -1,7 +1,10 @@
-note: all files in this directory, (code, readme and data) had been copied from https://physionet.org/works/ICD9CodingofDischargeSummaries, 
-which only MIMIC authorized users should have access, then I think they should not be present in this repository, correct?
+Please refer to License Agreement to understand the details of this project.
+The codebase was provided by a publicly available Open Access research project as described in the paper:
+https://github.com/letslego/W266-ProjectMIMIC/blob/master/papers/2014%20Automatic%20Assignment%20of%20ICD9%20codes%20to%20discharge%20summaries.pdf
 
-README for Physionet Project "W266: ICD9 Coding of Discharge Summaries"
+The data set has been updated to MIMIC III from MIMIC II.
+
+"W266: ICD9 Coding of Discharge Summaries"
 
 ===================================================================
 
