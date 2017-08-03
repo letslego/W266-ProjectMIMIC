@@ -1,0 +1,19 @@
+License
+
+This software is free only for non-commercial use. It must not be
+distributed without prior permission of the author. The author is not
+responsible for implications from the use of this software.
+
+This code is provided under a dual license.  The GNU General Public
+License (GPL-3.0) for academic and other open source uses and a
+commercial license.  Please contact the author for more information
+about commercial licensing.
+
+Copyright (c) 2013, Adler Perotte
+All rights reserved.
+
+The text of the GNU General Public License that applies to this
+software can be found here: http://opensource.org/licenses/GPL-3.0
+
+There has been changes made to the data to update it to ICD9 version of MIMIC III.
+

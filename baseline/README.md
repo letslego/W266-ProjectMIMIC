@@ -49,6 +49,7 @@ desc  limit 20;
 ```
 
 The file containing the list of admissions resulting of the filtering above is in this file: baseline\psql_files\diagnoses_icd_codes.csv
+(note: we removed all files containing MIMIC data because they need authorization by MIMIC to access)
 
 Here is the sql that created that file
 
@@ -92,6 +93,7 @@ mimic=# select category from noteevents group by category;
 ``` 
 The baseline will  ONLY  use the 'Discharge Summary' clinical notes. (note: we may use the other clinical notes for the final project)
 An example of one discharge summary note can be found at: baseline/psql_files/discharge_note_sample.out
+(we removde all data related files since they need granted authorization by MIMIC)
 
 
 It looks like the discharge summary can have Addendum, we will not include Addendums for the baseline
@@ -152,9 +154,6 @@ ON W266_DISCHARGE_NOTE_ICD9_CODES(HADM_ID) ;
 
 ```
 
-The table has been exported to a CSV file and uploaded to this google drive: (it did not fit in github)
-https://drive.google.com/drive/folders/0B-km8EaXYphsbmNsbEJKS1RMams
-
 the file is about 474 MB
 
 ## Representing clinical notes for the baseline
@@ -163,13 +162,15 @@ Previous research represents this documents as bag-of-words vectors [1]. In part
 
 (note for the final model: we could use here POS tagging, parsing and entity recognition)
 
-## Baseline Model
+## Basic Baseline Model
+For the basic baseline, we make a fixed prediction corresponding to the top 4 ICD-9 codes for all records
+
+## NN Baseline Model
 A neural network (not Recurrent) with one hidden layer, with relu activation on the hidden layer and sigmoid activation on the output layer.   Using cross entropy loss,which is the loss functions for multilabel classification [4]   
    
-(note: not sure what will go in each cell for a recurrent network, one paper uses the last 20 notes for each admission and feeds one note to each cell.. but if we use just the discharge summary, then we could feed a sentence to each cell, or a word.. but that would be too many cells... something to consider later on)
 
 ## Evaluation
-rank loss metric to evaluate performance [3] or F1 score [2] .. or both  (not sure yet)
+rank loss metric to evaluate performance [3] and F1 score [2] 
 
 ## References
 [1] Diagnosis code assignment: models and evaluation metrics. Journal of the American Medical Informatics   
