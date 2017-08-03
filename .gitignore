@@ -1,6 +1,1 @@
-data/NOTEEVENTS.csv
-data/discharge_notes_icd9.csv
-data/ADMISSIONS.csv
-data/DIAGNOSES_ICD.csv
-data/PATIENTS.csv.gz
-data/D_ICD_DIAGNOSES.csv.gz
+data/**.csv*
