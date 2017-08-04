@@ -16,7 +16,7 @@ class NNLM(object):
 
         
     @with_self_graph
-    def SetParams(self, vocab_size, sequence_length, embedding_size, num_classes, filter_sizes,num_filters,l2_reg_lambda=0.0):
+    def SetParams(self, vocab_size, sequence_length, embedding_size, num_classes, learning_rate, filter_sizes,num_filters,l2_reg_lambda=0.0):
         self.vocab_size = vocab_size 
         self.embedding_size =embedding_size 
         self.num_classes =num_classes
@@ -26,6 +26,8 @@ class NNLM(object):
         # sequence_length: The length of our sentences. In this example all our sentences 
         #have the same length (59)
         self.sequence_length = sequence_length
+        
+        self.learning_rate = learning_rate
         
         
         # Training hyperparameters; these can be changed with feed_dict,
@@ -75,8 +77,8 @@ class NNLM(object):
                 # performing a narrow convolution that gives us an output of shape 
                 W = tf.Variable(tf.truncated_normal(filter_shape, stddev=0.1), name="W")
                 b = tf.Variable(tf.constant(0.1, shape=[self.num_filters]), name="b")                 
-                conv = tf.nn.conv2d( self.x_expanded, W, 
-                     strides=[1, 1, 1, 1], padding="VALID", name="conv") + b
+                conv = tf.nn.bias_add(tf.nn.conv2d( self.x_expanded, W, 
+                     strides=[1, 1, 1, 1], padding="VALID", name="conv"), b)
                                 
                 # Apply nonlinearity  
                 h = tf.nn.relu(conv, name="relu")   
@@ -129,6 +131,7 @@ class NNLM(object):
     @with_self_graph
     def BuildTrainGraph(self):        
         self.global_step = tf.Variable(0, name="global_step", trainable=False)
-        optimizer = tf.train.AdamOptimizer(1e-4)
+        #optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        optimizer = tf.train.AdadeltaOptimizer (self.learning_rate)
         grads_and_vars = optimizer.compute_gradients(self.loss)
         self.train_op = optimizer.apply_gradients(grads_and_vars, global_step=self.global_step)
