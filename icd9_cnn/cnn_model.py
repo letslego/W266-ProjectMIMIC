@@ -109,7 +109,7 @@ class NNLM(object):
         with tf.name_scope("dropout"):
             self.h_drop = tf.nn.dropout(self.h_pool_flat, self.dropout_keep_prob)
             
-                # Final (unnormalized) scores and predictions
+        # Final (unnormalized) scores and predictions
         with tf.name_scope("output"):
             W = tf.get_variable(
                 "W",
@@ -121,7 +121,8 @@ class NNLM(object):
             self.scores = tf.nn.xw_plus_b(self.h_drop, W, b, name="scores")
             #self.predictions = tf.argmax(self.scores, 1, name="predictions")
             
-            self.y_hat = tf.sigmoid(self.scores)  
+            #self.y_hat = tf.sigmoid(self.scores) 
+            self.y_hat = tf.nn.softmax(self.scores) 
         
         # CalculateMean cross-entropy loss
         with tf.name_scope("loss"):
@@ -133,5 +134,6 @@ class NNLM(object):
         self.global_step = tf.Variable(0, name="global_step", trainable=False)
         #optimizer = tf.train.AdamOptimizer(self.learning_rate)
         optimizer = tf.train.AdadeltaOptimizer (self.learning_rate)
-        grads_and_vars = optimizer.compute_gradients(self.loss)
-        self.train_op = optimizer.apply_gradients(grads_and_vars, global_step=self.global_step)
+        #grads_and_vars = optimizer.compute_gradients(self.loss)
+        #self.train_op = optimizer.apply_gradients(grads_and_vars, global_step=self.global_step)
+        self.train_op = optimizer.minimize(self.loss, global_step=self.global_step)
