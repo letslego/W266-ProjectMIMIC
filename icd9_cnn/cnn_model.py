@@ -132,8 +132,6 @@ class NNLM(object):
     @with_self_graph
     def BuildTrainGraph(self):        
         self.global_step = tf.Variable(0, name="global_step", trainable=False)
-        #optimizer = tf.train.AdamOptimizer(self.learning_rate)
-        optimizer = tf.train.AdadeltaOptimizer (self.learning_rate)
-        #grads_and_vars = optimizer.compute_gradients(self.loss)
-        #self.train_op = optimizer.apply_gradients(grads_and_vars, global_step=self.global_step)
+        optimizer = tf.train.AdamOptimizer(self.learning_rate)
+        #optimizer = tf.train.AdadeltaOptimizer (self.learning_rate)
         self.train_op = optimizer.minimize(self.loss, global_step=self.global_step)
