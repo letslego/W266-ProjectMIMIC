@@ -88,10 +88,11 @@ def pad_notes(data, MAX_SEQ_LENGTH):
 # Creates an embedding Matrix
 # Based on https://blog.keras.io/using-pre-trained-word-embeddings-in-a-keras-model.html
 
-def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True):
+def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True, sigma = None):
     """Takes a pre-trained embedding and adapts it to the dictionary at hand
         Words not found will be all-zeros in the matrix"""
 
+    # Dictionary of words from the pre trained embedding
     pretrained_dict = {}
     with open(f_name, 'r') as f:
         for line in f:
@@ -100,7 +101,13 @@ def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True):
             coefs = np.asarray(values[1:], dtype='float32')
             pretrained_dict[word] = coefs
 
-    pretrained_matrix = np.zeros((len(dictionary) + 1, EMBEDDING_DIM))
+    # Default values for absent words
+    if sigma:
+        pretrained_matrix = sigma * np.random.rand(len(dictionary) + 1, EMBEDDING_DIM)
+    else:
+        pretrained_matrix = np.zeros((len(dictionary) + 1, EMBEDDING_DIM))
+    
+    # Substitution of default values by pretrained values when applicable
     for word, i in dictionary.items():
         vector = pretrained_dict.get(word)
         if vector is not None:
