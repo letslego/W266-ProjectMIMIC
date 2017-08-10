@@ -3,13 +3,14 @@ from keras.layers import Dense, Flatten, Input, Convolution1D
 from keras.layers import Conv1D, MaxPooling1D, Embedding, Merge, Dropout, LSTM, GRU, Bidirectional, TimeDistributed
 from keras.layers.merge import Concatenate
 from keras.layers.core import *
-from keras.layers import merge
+from keras.layers import merge, dot, add
+from keras import backend as K
 
 # based on https://github.com/richliao/textClassifier/blob/master/textClassifierHATT.py
 # combined with https://github.com/philipperemy/keras-attention-mechanism/blob/master/attention_lstm.py
 # based on paper: Hierarchical Attention networks for document classification
 
-SINGLE_ATTENTION_VECTOR = False
+SINGLE_ATTENTION_VECTOR = True
 
 def attention_3d_block(inputs, TIME_STEPS):
     # inputs.shape = (batch_size, time_steps, input_dim)
@@ -26,7 +27,14 @@ def attention_3d_block(inputs, TIME_STEPS):
         a = RepeatVector(input_dim)(a)
     a_probs = Permute((2, 1), name='attention_vec')(a)
     output_attention_mul = merge([inputs, a_probs], name='attention_mul', mode='mul')
-    return output_attention_mul
+    print output_attention_mul.shape   
+    # w266 where is the sum?
+    #sum_vector = add(output_attention_mul, name= 'attention_sum')
+    #sum_vector = merge( output_attention_mul, name='attention_add', mode='add') 
+    sum_vector = Lambda(lambda x: K.sum(x, axis=1))(output_attention_mul)
+    #K.sum(output_attention_mul, axis=1)
+    
+    return sum_vector
 
 
 
@@ -59,11 +67,13 @@ def build_gru_att_model(MAX_SENTS, MAX_SENT_LENGTH,
 	# (3) u_it: we first feed the word annotation through a one-layer MLP to get the hidden representation u_it
     l_dense = TimeDistributed(Dense(200))(l_lstm)
 
-    attention_mul = attention_3d_block(l_dense,MAX_SENT_LENGTH) 
-    l_att = Flatten()(attention_mul) 
+    words_attention_vector = attention_3d_block(l_dense,MAX_SENT_LENGTH) 
+    #l_att = Flatten()(attention_mul) 
 
 	#  Keras model that process words in one sentence
-    sentEncoder = Model(sentence_input, l_att)
+    sentEncoder = Model(sentence_input, words_attention_vector)
+    
+    print sentEncoder.summary()
 
     # SENTENCE LAYER
     #---------------------------------------------------------------------------------------------------------------------
@@ -75,10 +85,10 @@ def build_gru_att_model(MAX_SENTS, MAX_SENT_LENGTH,
     l_lstm_sent = Bidirectional(GRU(100, return_sequences=True))(note_encoder)
 	#attention layer
     l_dense_sent = TimeDistributed(Dense(200))(l_lstm_sent)
-    attention_mul_sent = attention_3d_block(l_dense_sent,MAX_SENTS) 
-    l_att_sent = Flatten()(attention_mul_sent)
+    sentences_attention_vector = attention_3d_block(l_dense_sent,MAX_SENTS) 
+    #l_att_sent = Flatten()(attention_mul_sent)
 	# output layer
-    preds = Dense(num_classes, activation='softmax', name='preds')(l_att_sent)
+    preds = Dense(num_classes, activation='softmax', name='preds')(sentences_attention_vector)
     
     #model
     model = Model(note_input, preds)
