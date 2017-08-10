@@ -10,7 +10,7 @@ from keras import backend as K
 # combined with https://github.com/philipperemy/keras-attention-mechanism/blob/master/attention_lstm.py
 # based on paper: Hierarchical Attention networks for document classification
 
-SINGLE_ATTENTION_VECTOR = True
+SINGLE_ATTENTION_VECTOR = False
 
 def attention_3d_block(inputs, TIME_STEPS):
     # inputs.shape = (batch_size, time_steps, input_dim)
@@ -93,9 +93,8 @@ def build_gru_att_model(MAX_SENTS, MAX_SENT_LENGTH,
     #model
     model = Model(note_input, preds)
 
-    model.compile(loss='categorical_crossentropy',
-              optimizer='rmsprop',
-              metrics=['acc'])
+    #model.compile(loss='categorical_crossentropy',optimizer='rmsprop',metrics=['acc'])
+    model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 
     print("model fitting - Hierachical Attention GRU")
     print model.summary()
