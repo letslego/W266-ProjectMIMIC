@@ -35,7 +35,7 @@ def show_f1_score(y_train, pred_train, y_val, pred_dev):
     print 'F1 scores'
     print 'threshold | training | dev  '
     f1_score_average = 'micro'
-    for threshold in [ 0.02, 0.03,0.04,0.05,0.055,0.058,0.06, 0.08, 0.1,0.2,0.3, 0.5]:
+    for threshold in [ 0.02, 0.03,0.04,0.05,0.055,0.058,0.06, 0.08, 0.1,0.2,0.3, 0.4, 0.5, 0.6,0.7]:
         train_f1 = get_f1_score(y_train, pred_train,threshold,f1_score_average)
         dev_f1 = get_f1_score(y_val, pred_dev,threshold,f1_score_average)
         print '%1.3f:      %1.3f      %1.3f' % (threshold,train_f1, dev_f1)

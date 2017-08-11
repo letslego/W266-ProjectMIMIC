@@ -36,7 +36,7 @@ def clean_str(string):
     string = re.sub("\[\*\*.*?\*\*\]", "", string) # remove the things inside the [** **]
     string = re.sub("[^a-zA-Z0-9\ \']+", " ", string)
 
-    """ Tokenization/string cleaning for all datasets except for SST.
+    """ Tokenization/string cleaning .
         Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
         """
     #string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
