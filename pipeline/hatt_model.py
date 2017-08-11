@@ -6,9 +6,10 @@ from keras.layers.core import *
 from keras.layers import merge, dot, add
 from keras import backend as K
 
-# based on https://github.com/richliao/textClassifier/blob/master/textClassifierHATT.py
-# combined with https://github.com/philipperemy/keras-attention-mechanism/blob/master/attention_lstm.py
 # based on paper: Hierarchical Attention networks for document classification
+# starting code from:
+# * https://github.com/richliao/textClassifier/blob/master/textClassifierHATT.py
+# * https://github.com/philipperemy/keras-attention-mechanism/blob/master/attention_lstm.py
 
 SINGLE_ATTENTION_VECTOR = False
 
