@@ -6,6 +6,7 @@ import re
 import keras
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
+from glove import Corpus, Glove
 
 
 # Vectorize ICD codes
@@ -36,7 +37,7 @@ def clean_str(string):
     string = re.sub("\[\*\*.*?\*\*\]", "", string) # remove the things inside the [** **]
     string = re.sub("[^a-zA-Z0-9\ \']+", " ", string)
 
-    """ Tokenization/string cleaning .
+    """ Tokenization/string cleaning for all datasets except for SST.
         Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
         """
     #string = re.sub(r"[^A-Za-z0-9(),!?\'\`]", " ", string)
@@ -61,6 +62,15 @@ def clean_str(string):
 def clean_notes(df, col_name):
     r = df[col_name].apply(lambda x: clean_str(x))
     return r
+
+
+# Create an embedding
+
+def glove_text(df, col_name):
+    corpus = Corpus()
+    corpus.fit(df[col_name], window=10)
+    glove = Glove(no_components=100, learning_rate=0.05)
+    return df
 
 
 # Vectorize and Pad notes Text
@@ -103,8 +113,7 @@ def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True, sigma = 
 
     # Default values for absent words
     if sigma:
-        #pretrained_matrix = sigma * np.random.rand(len(dictionary) + 1, EMBEDDING_DIM)
-        pretrained_matrix =  np.random.uniform( low=-0.05, high=0.05, size=(len(dictionary) + 1, EMBEDDING_DIM))
+        pretrained_matrix = sigma * np.random.rand(len(dictionary) + 1, EMBEDDING_DIM)
     else:
         pretrained_matrix = np.zeros((len(dictionary) + 1, EMBEDDING_DIM))
     
@@ -121,5 +130,3 @@ def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True, sigma = 
         print('Vocabulary intersection:', len(inter))
 
     return pretrained_matrix, pretrained_dict
-
-
