@@ -6,12 +6,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
 
 
+
 def train_val_test_split(X, y, val_size=0.2, test_size=0.2, random_state=101):
     """Splits the input and labels into 3 sets"""
     X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=(val_size+test_size), random_state=random_state)
     X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=test_size/(val_size+test_size), random_state=random_state)
     return X_train, X_val, X_test, y_train, y_val, y_test
-
 
 
 def replace_with_grandparent_codes(string_codes, ICD9_FIRST_LEVEL):
@@ -26,6 +26,11 @@ def replace_with_grandparent_codes(string_codes, ICD9_FIRST_LEVEL):
                 resulting_codes.append(ICD9_FIRST_LEVEL[i])
                 break 
     return ' '.join (set(resulting_codes))
+
+
+def write_col(df, col_name, fname):
+    df[col_name].to_csv(fname)
+    
 
 def get_f1_score(y_true,y_hat,threshold, average):
     hot_y = np.where(np.array(y_hat) > threshold, 1, 0)
