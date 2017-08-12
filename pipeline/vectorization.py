@@ -103,7 +103,8 @@ def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True, sigma = 
 
     # Default values for absent words
     if sigma:
-        pretrained_matrix = sigma * np.random.rand(len(dictionary) + 1, EMBEDDING_DIM)
+        #pretrained_matrix = sigma * np.random.rand(len(dictionary) + 1, EMBEDDING_DIM)
+        pretrained_matrix =  np.random.uniform( low=-0.05, high=0.05, size=(len(dictionary) + 1, EMBEDDING_DIM))
     else:
         pretrained_matrix = np.zeros((len(dictionary) + 1, EMBEDDING_DIM))
     
@@ -120,3 +121,5 @@ def embedding_matrix(f_name, dictionary, EMBEDDING_DIM, verbose = True, sigma = 
         print('Vocabulary intersection:', len(inter))
 
     return pretrained_matrix, pretrained_dict
+
+

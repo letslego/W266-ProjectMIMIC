@@ -1,10 +1,11 @@
 from keras.models import Sequential, Model
 from keras.layers import Dense, Dropout, Flatten, Input, MaxPooling1D, Convolution1D, Embedding
 from keras.layers.merge import Concatenate
+from keras import regularizers
 
 
 def build_icd9_cnn_model(input_seq_length, 
-                         max_vocab, external_embeddings, embedding_trainable, embedding_dim, embedding_matrix,
+                         max_vocab, external_embeddings, embedding_dim, embedding_matrix,
                          num_filters, filter_sizes,
                          training_dropout_keep_prob,
                          num_classes):
@@ -16,12 +17,12 @@ def build_icd9_cnn_model(input_seq_length,
                             embedding_dim,
                             weights=[embedding_matrix],
                             input_length=input_seq_length,
-                            trainable=embedding_trainable)(model_input)
+                            trainable=True)(model_input)
     else:
         # train embeddings 
         z =  Embedding(max_vocab + 1, 
                    embedding_dim, 
-                   input_length=input_seq_length, 
+                   input_length=input_seq_length, embeddings_regularizer=regularizers.l2(0.0001),
                    name="embedding")(model_input)
 
     # Convolutional block
