@@ -24,7 +24,7 @@ def build_lstm_model(input_seq_length,
                    name="embedding")(model_input)
 
     # LSTM
-    l_lstm = LSTM(100)(z)
+    l_lstm = LSTM(50)(z)
     
     #score prediction 
     model_output = Dense(num_classes, activation="sigmoid")(l_lstm)

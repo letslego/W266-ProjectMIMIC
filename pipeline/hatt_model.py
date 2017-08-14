@@ -6,10 +6,12 @@ from keras.layers.core import *
 from keras.layers import merge, dot, add
 from keras import backend as K
 
+import attention_util
+
 # based on paper: Hierarchical Attention networks for document classification
 # starting code from:
 # * https://github.com/richliao/textClassifier/blob/master/textClassifierHATT.py
-# * https://github.com/philipperemy/keras-attention-mechanism/blob/master/attention_lstm.py
+# but the github sources above had misteakes that had been corrected here
 
 def conv_layer(input,input_seq_length, num_filters,filter_sizes): 
     
@@ -29,25 +31,7 @@ def conv_layer(input,input_seq_length, num_filters,filter_sizes):
     z = Concatenate()(conv_blocks) if len(conv_blocks) > 1 else conv_blocks[0]
     return z
 
-def attention_3d_block(inputs, TIME_STEPS):
-    # inputs.shape = (batch_size, time_steps, input_dim)
-    input_dim = int(inputs.shape[2])
-    # (4) alpah_it: then we measure the importance of x as the similarity of u_it with a x level
-	#     context vector u_w and get a normalized importance weight alpha_it through a softmax function
-    a = Permute((2, 1))(inputs)
-    a = Reshape((input_dim, TIME_STEPS))(a)
-    a = Dense(TIME_STEPS, activation='softmax')(a)
-    
-	# (5) s_i: After that, we compute the sentence vector s_i as a weighted sum of the word annotations based on the weights alpha_it.
-    a_probs = Permute((2, 1), name='attention_vec')(a)
-    output_attention_mul = merge([inputs, a_probs], name='attention_mul', mode='mul') 
-    # w266 where is the sum?
-    #sum_vector = add(output_attention_mul, name= 'attention_sum')
-    #sum_vector = merge( output_attention_mul, name='attention_add', mode='add') 
-    sum_vector = Lambda(lambda x: K.sum(x, axis=1))(output_attention_mul)
-    #K.sum(output_attention_mul, axis=1)
-    
-    return sum_vector
+
 
 
 
@@ -75,7 +59,7 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH,
 	# (2) GRU to get annotations of words by summarizing information
     #     h_it: We obtain an annotation for a given word  by concatenating the forward hidden state  and
     #     backward hidden state
-    sentence_vector = Bidirectional(GRU(50, return_sequences=True))(embedded_sequences)
+    h_it_sentence_vector = Bidirectional(GRU(50, return_sequences=True))(embedded_sequences)
     #sentence_vector = conv_layer(embedded_sequences, MAX_SENT_LENGTH, num_filters,filter_sizes)
     
 	#  Attention layer
@@ -86,7 +70,7 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH,
 	# (3) u_it: we first feed the word annotation through a one-layer MLP to get the hidden representation u_it
     #l_dense = TimeDistributed(Dense(10))(sentence_vector)
 
-    words_attention_vector = attention_3d_block(sentence_vector,MAX_SENT_LENGTH) 
+    words_attention_vector = attention_util.attention_layer(h_it_sentence_vector,MAX_SENT_LENGTH) 
     #l_att = Flatten()(attention_mul) 
 
 	#  Keras model that process words in one sentence
@@ -106,7 +90,7 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH,
     
 	#attention layer
     #l_dense_sent = TimeDistributed(Dense(250))(document_vector)
-    sentences_attention_vector = attention_3d_block(document_vector,MAX_SENTS) 
+    sentences_attention_vector = attention_util.attention_layer(document_vector,MAX_SENTS) 
     #l_att_sent = Flatten()(attention_mul_sent)
 	# output layer
     preds = Dense(num_classes, activation='sigmoid', name='preds')(sentences_attention_vector)
