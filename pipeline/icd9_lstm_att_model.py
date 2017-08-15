@@ -20,13 +20,13 @@ def build_lstm_att_model(input_seq_length,
                             embedding_dim,
                             weights=[embedding_matrix],
                             input_length=input_seq_length,
-                            trainable=embedding_trainable)(model_input)
+                            trainable=embedding_trainable,name = "Embeddng")(model_input)
     else:
         # train embeddings 
         z =  Embedding(max_vocab + 1, 
                    embedding_dim, 
                    input_length=input_seq_length, 
-                   name="embedding")(model_input)
+                   name="Embedding")(model_input)
 
     # LSTM
     lstm_units= 50
@@ -36,7 +36,7 @@ def build_lstm_att_model(input_seq_length,
     words_attention_vector = attention_util.attention_layer(l_lstm,input_seq_length,lstm_units) 
     
     #score prediction 
-    model_output = Dense(num_classes, activation="sigmoid")(words_attention_vector)
+    model_output = Dense(num_classes, activation="sigmoid", name="Output_Layer")(words_attention_vector)
 
     #creating model
     model = Model(model_input, model_output)
