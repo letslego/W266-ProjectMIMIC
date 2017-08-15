@@ -11,7 +11,7 @@ import attention_util
 
 def build_lstm_att_model(input_seq_length, 
                          max_vocab, external_embeddings, embedding_trainable, embedding_dim, embedding_matrix,                         
-                         num_classes):
+                          training_dropout_keep_prob,num_classes):
     #Embedding
     model_input = Input(shape=(input_seq_length, ))
     if external_embeddings:
@@ -36,7 +36,8 @@ def build_lstm_att_model(input_seq_length,
     words_attention_vector = attention_util.attention_layer(l_lstm,input_seq_length,lstm_units) 
     
     #score prediction 
-    model_output = Dense(num_classes, activation="sigmoid", name="Output_Layer")(words_attention_vector)
+    z = Dropout(training_dropout_keep_prob)(words_attention_vector)
+    model_output = Dense(num_classes, activation="sigmoid", name="Output_Layer")(z)
 
     #creating model
     model = Model(model_input, model_output)
