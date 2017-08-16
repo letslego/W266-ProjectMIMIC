@@ -5,8 +5,8 @@ from keras.layers import LSTM
 
 
 def build_lstm_model(input_seq_length, 
-                         max_vocab, external_embeddings, embedding_trainable, embedding_dim, embedding_matrix,                         
-                         num_classes):
+                         max_vocab, external_embeddings, embedding_trainable, embedding_dim, embedding_matrix,
+                     training_dropout_keep_prob, num_classes):
     #Embedding
     model_input = Input(shape=(input_seq_length, ))
     if external_embeddings:
@@ -26,8 +26,10 @@ def build_lstm_model(input_seq_length,
     # LSTM
     l_lstm = LSTM(50)(z)
     
+    z = Dropout(training_dropout_keep_prob)(l_lstm)
+    
     #score prediction 
-    model_output = Dense(num_classes, activation="sigmoid")(l_lstm)
+    model_output = Dense(num_classes, activation="sigmoid")(z)
 
     #creating model
     model = Model(model_input, model_output)
