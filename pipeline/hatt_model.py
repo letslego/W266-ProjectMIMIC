@@ -15,8 +15,8 @@ import attention_util
 # but the github sources above had misteakes in the attention layer that had been corrected here
 
 def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH, embedding_matrix,
-                         max_vocab, embedding_dim, num_filters,filter_sizes, 
-                         num_classes):
+                         max_vocab, embedding_dim, 
+                         num_classes,training_dropout_keep_prob):
     
     # WORDS in one SENTENCE LAYER
     #-----------------------------------------
@@ -39,7 +39,8 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH, embedding_matrix,
     #     h_it: We obtain an annotation for a given word  by concatenating the forward hidden state  and
     #     backward hidden state
     gru_dim = 50
-    h_it_sentence_vector = Bidirectional(GRU(gru_dim, return_sequences=True))(embedded_sequences)
+    #h_it_sentence_vector = Bidirectional(GRU(gru_dim, return_sequences=True))(embedded_sequences)
+    h_it_sentence_vector =  Bidirectional(LSTM(gru_dim, return_sequences=True))(embedded_sequences)
      
 	#  Attention layer
 	#  Not all words contribute equally to the representation of the sentence meaning.
@@ -59,12 +60,15 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH, embedding_matrix,
 	# The input should be at least 3D, and the dimension of index one will be considered to be the temporal dimension
 	# Here the sentEncoder is applied to each input record (a note) 
     note_encoder = TimeDistributed(sentEncoder)(note_input)
-    document_vector = Bidirectional(GRU(gru_dim, return_sequences=True))(note_encoder)
+    #document_vector = Bidirectional(GRU(gru_dim, return_sequences=True))(note_encoder)
+    ddocument_vector = Bidirectional(LSTM(gru_dim, return_sequences=True))(note_encoder)
     
 	#attention layer
     sentences_attention_vector = attention_util.attention_layer(document_vector,MAX_SENTS,gru_dim) 
+    
 	# output layer
-    preds = Dense(num_classes, activation='sigmoid', name='preds')(sentences_attention_vector)
+    z = Dropout(training_dropout_keep_prob)(sentences_attention_vector)
+    preds = Dense(num_classes, activation='sigmoid', name='preds')(z)
     
     #model
     model = Model(note_input, preds)
