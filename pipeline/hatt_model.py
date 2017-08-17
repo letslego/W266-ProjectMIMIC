@@ -16,7 +16,7 @@ import attention_util
 
 def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH, embedding_matrix,
                          max_vocab, embedding_dim, 
-                         num_classes,training_dropout_keep_prob):
+                         num_classes,training_dropout):
     
     # WORDS in one SENTENCE LAYER
     #-----------------------------------------
@@ -61,13 +61,13 @@ def build_hierarhical_att_model(MAX_SENTS, MAX_SENT_LENGTH, embedding_matrix,
 	# Here the sentEncoder is applied to each input record (a note) 
     note_encoder = TimeDistributed(sentEncoder)(note_input)
     #document_vector = Bidirectional(GRU(gru_dim, return_sequences=True))(note_encoder)
-    ddocument_vector = Bidirectional(LSTM(gru_dim, return_sequences=True))(note_encoder)
+    document_vector = Bidirectional(LSTM(gru_dim, return_sequences=True))(note_encoder)
     
 	#attention layer
     sentences_attention_vector = attention_util.attention_layer(document_vector,MAX_SENTS,gru_dim) 
     
 	# output layer
-    z = Dropout(training_dropout_keep_prob)(sentences_attention_vector)
+    z = Dropout(training_dropout)(sentences_attention_vector)
     preds = Dense(num_classes, activation='sigmoid', name='preds')(z)
     
     #model
