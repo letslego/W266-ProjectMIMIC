@@ -37,7 +37,7 @@ def build_icd9_cnn_model(input_seq_length,
     for i,sz in enumerate(filter_sizes):
         conv = Convolution1D(filters=num_filters,                         
                          kernel_size=sz,
-                         padding="valid",
+                         padding="valid",kernel_regularizer=regularizers.l2(0.001),
                          activation="relu",
                          strides=1)(z)
         window_pool_size =  input_seq_length  - sz + 1 
@@ -48,13 +48,15 @@ def build_icd9_cnn_model(input_seq_length,
 
     #concatenate
     z = Concatenate()(conv_blocks) if len(conv_blocks) > 1 else conv_blocks[0]
-    #z = Dropout(0.25)(z)
+    z = Dropout(0.5)(z)
 
     #score prediction
-    z = Dense(200, activation="relu")(z)  #to avoid overfitting? I don't think this is necessary
-    z = Dropout(0.5)(z)
+    #
+    #z = Dense(200, activation="relu")(z)  #to avoid overfitting? I don't think this is necessary
+    #z = Dropout(training_dropout)(z)
     #model_output = Dense(num_classes, activation="softmax")(z)
-    model_output = Dense(num_classes, activation="sigmoid")(z)
+    model_output = Dense(num_classes, kernel_regularizer=regularizers.l2(0.0001),
+                         activation="sigmoid")(z)
 
     #creating model
     model = Model(model_input, model_output)
