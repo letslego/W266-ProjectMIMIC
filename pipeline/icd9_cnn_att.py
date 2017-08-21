@@ -62,7 +62,7 @@ def build_icd9_cnn_model(input_seq_length,
     #creating model
     model = Model(model_input, model_output)
     # what to use for tf.nn.softmax_cross_entropy_with_logits?
-    adam_op = optimizers.Adam(lr=0.0007, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+    adam_op = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
     model.compile(loss="binary_crossentropy", optimizer=adam_op, metrics=["accuracy"])
     #model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
     #model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
