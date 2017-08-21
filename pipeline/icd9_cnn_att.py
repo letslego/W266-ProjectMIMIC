@@ -3,6 +3,7 @@ from keras.layers import Dense, Dropout, Flatten, Input, MaxPooling1D, Convoluti
 from keras.layers.merge import Concatenate
 from keras import regularizers
 import attention_util
+from keras import optimizers
 
 ''' code based on:
 https://github.com/alexander-rakhlin/CNN-for-Sentence-Classification-in-Keras/blob/master/sentiment_cnn.py
@@ -48,7 +49,7 @@ def build_icd9_cnn_model(input_seq_length,
 
     #concatenate
     z = Concatenate()(conv_blocks) if len(conv_blocks) > 1 else conv_blocks[0]
-    z = Dropout(0.5)(z)
+    z = Dropout(training_dropout)(z)
 
     #score prediction
     #
@@ -61,7 +62,9 @@ def build_icd9_cnn_model(input_seq_length,
     #creating model
     model = Model(model_input, model_output)
     # what to use for tf.nn.softmax_cross_entropy_with_logits?
-    model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
+    adam_op = optimizers.Adam(lr=0.0007, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+    model.compile(loss="binary_crossentropy", optimizer=adam_op, metrics=["accuracy"])
+    #model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"])
     #model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
     
     print model.summary()
