@@ -2,8 +2,8 @@
 
 ## Members:
 Zenobia Liendo   
+Guillaume De Roo
 Amitabha Karmakar   
-Guillaume De Roo   
 
 Note: this repositiory does not contain files with MIMIC data because they need MIMIC authorization:
 https://mimic.physionet.org/gettingstarted/access/ 
