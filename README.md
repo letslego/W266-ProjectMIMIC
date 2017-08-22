@@ -2,7 +2,7 @@
 
 ## Members:
 Zenobia Liendo   
-Guillaume De Roo
+Guillaume De Roo   
 Amitabha Karmakar   
 
 Note: this repositiory does not contain files with MIMIC data because they need MIMIC authorization:
@@ -22,7 +22,7 @@ https://mimic.physionet.org/gettingstarted/access/
 | CNN| First-Level | 5K| 20| [pipeline/icd9_lstm_cnn_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_cnn_workbook.ipynb)|
 
 
-## Apendix 
+## Appendix 
 | Model | Notebook |
 | --- | --- |
 | NN Baseline | [baseline/mimic_icd9_baseline.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/baseline/mimic_icd9_baseline.ipynb) |
