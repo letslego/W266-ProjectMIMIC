@@ -17,6 +17,7 @@ https://mimic.physionet.org/gettingstarted/access/
 | LSTM | First-Level | 5K| 5|[pipeline/icd9_lstm_cnn_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_cnn_workbook.ipynb)|
 | LSTM with Attention| First-Level | 5K|5| [pipeline/icd9_lstm_cnn_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_cnn_workbook.ipynb)|
 | CNN| First-Level | 5K| 5|[pipeline/icd9_lstm_cnn_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_cnn_workbook.ipynb)|
+| CNN-ATT| First-Level | 5K| 5|[pipeline/icd9_cnn_att_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_att_workbook.ipynb)|
 | CNN| First-Level | 5K| 20| [pipeline/icd9_lstm_cnn_workbook.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_cnn_workbook.ipynb)|
 
 
