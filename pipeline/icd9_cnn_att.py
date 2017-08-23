@@ -12,10 +12,10 @@ https://github.com/dennybritz/cnn-text-classification-tf/blob/master/text_cnn.py
 '''
 
 def build_icd9_cnn_model(input_seq_length, 
-                         max_vocab, external_embeddings, embedding_dim, embedding_matrix,
-                         num_filters, filter_sizes,
+                         max_vocab, external_embeddings, embedding_dim, embedding_matrix, 
+                         num_filters, filter_sizes, 
                          training_dropout,
-                         num_classes):
+                         num_classes,trainable_Embeddings=True):
     #Embedding
     model_input = Input(shape=(input_seq_length, ))
     if external_embeddings:
@@ -24,7 +24,7 @@ def build_icd9_cnn_model(input_seq_length,
                             embedding_dim,
                             weights=[embedding_matrix],
                             input_length=input_seq_length,
-                            trainable=True)(model_input)
+                            trainable=trainable_Embeddings,embeddings_regularizer=regularizers.l2(0.0001))(model_input)
     else:
         # train embeddings 
         z =  Embedding(max_vocab + 1, 
@@ -49,12 +49,10 @@ def build_icd9_cnn_model(input_seq_length,
 
     #concatenate
     z = Concatenate()(conv_blocks) if len(conv_blocks) > 1 else conv_blocks[0]
-    z = Dropout(training_dropout)(z)
 
     #score prediction
-    #
     #z = Dense(200, activation="relu")(z)  #to avoid overfitting? I don't think this is necessary
-    #z = Dropout(training_dropout)(z)
+    z = Dropout(training_dropout)(z)
     #model_output = Dense(num_classes, activation="softmax")(z)
     model_output = Dense(num_classes, kernel_regularizer=regularizers.l2(0.0001),
                          activation="sigmoid")(z)
