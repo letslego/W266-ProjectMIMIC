@@ -23,6 +23,7 @@ https://mimic.physionet.org/gettingstarted/access/
 | CNN for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_50K_run.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_50K_run.ipynb) |
 | CNN-ATT for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_att_50K_records.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_att_50K_records.ipynb) |
 
+(Note: the different notebooks above would be re-factored as part of 'further work')
 
 ## Model Python modules
 
