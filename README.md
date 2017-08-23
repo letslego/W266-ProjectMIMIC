@@ -42,3 +42,4 @@ https://mimic.physionet.org/gettingstarted/access/
 | NN Baseline | [baseline/mimic_icd9_baseline.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/baseline/mimic_icd9_baseline.ipynb) |
 | SVM Baseline | /svm_baseline/* all files in this directory, (code, readme) had been copied from https://physionet.org/works/ICD9CodingofDischargeSummaries, they were executed with MIMIC III data |
 | Notes Exploration with Named Entity Recognition | [notes_exploration/Exploration.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/notes_exploration/Exploration.ipynb)|
+| Glove training on MIMIC | [pipeline/glove_train.sh](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/glove_train.sh)|
