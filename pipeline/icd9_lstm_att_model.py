@@ -23,7 +23,7 @@ def build_lstm_att_model(input_seq_length,
                             trainable=embedding_trainable,name = "Embeddng")(model_input)
     else:
         # train embeddings 
-        z =  Embedding(max_vocab + 1, 
+        z = Embedding(max_vocab + 1, 
                    embedding_dim, 
                    input_length=input_seq_length, 
                    name="Embedding")(model_input)
