@@ -10,6 +10,9 @@ from keras import backend as K
 
 # note: there is a lot of sample codes in the internet that do not work, and their authors do mention that, 
 # they don't see a difference when applying the attention mechanism
+#
+# I did have to review closely the formulas presented on the papers about Attention to figure it out what type of
+# code will actually work
 
 def attention_layer(inputs, TIME_STEPS,lstm_units, i='1'):
 
