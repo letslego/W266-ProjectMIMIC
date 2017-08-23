@@ -36,6 +36,11 @@ https://mimic.physionet.org/gettingstarted/access/
 
 
 ## Helper classes for Preprocessing
+
+| Helper | Python module |
+| --- | --- |
+| Filtering clinical-notes to keep the ones that have been assigned the top common N icd-9 codes (this is a multi-label),  removing any code from the label that is not in the top N | [pipeline/database_selection.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/database_selection.py) |
+| | |
 ## Appendix 
 | Model | Notebook |
 | --- | --- |
