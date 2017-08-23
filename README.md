@@ -30,9 +30,9 @@ https://mimic.physionet.org/gettingstarted/access/
 | LSTM | [pipeline/lstm_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/lstm_model.py) |
 | CNN | [pipeline/icd9_cnn_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_model.py)  |
 | Attention Layer |[pipeline/attention_util.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/attention_util.py)  |
-| LSTM_ATT | [](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_att_model.py)   |
-| CNN_ATT | []()   |
-| Hierarchical LSTM Attention | []()  |
+| LSTM_ATT | [pipeline/icd9_lstm_att_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_att_model.py)   |
+| CNN_ATT | [pipeline/icd9_cnn_att.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_att.py)   |
+| Hierarchical LSTM Attention | [pipeline/hatt_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/hatt_model.py)  |
 
 
 ## Helper classes for Preprocessing
