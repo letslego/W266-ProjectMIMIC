@@ -21,8 +21,21 @@ https://mimic.physionet.org/gettingstarted/access/
 | Basic Baseline | Leaf | 46K | - | [baseline/mimic_icd9_baseline.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/baseline/mimic_icd9_baseline.ipynb) |
 | CNN for top 20 leaf icd-9 codes | Leaf | 46K | 7 | [icd9_cnn/cnn_top20_leave.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/icd9_cnn/cnn_top20_leave.ipynb) |
 | CNN for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_50K_run.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_50K_run.ipynb) |
+| CNN-ATT for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_att_50K_records.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_att_50K_records.ipynb) |
+
+## Model Python modules
+
+| Model | Python module |
+| --- | --- |
+| LSTM |  |
+| CNN |  |
+| Attention Layer |[pipeline/attention_util.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/attention_util.py)  |
+| LSTM_ATT |   |
+| CNN_ATT |   |
+| Hierarchical LSTM Attention |  |
 
 
+## Helper classes for Preprocessing
 ## Appendix 
 | Model | Notebook |
 | --- | --- |
