@@ -88,7 +88,7 @@ train_y_hat_baseline = [top4_icd9_vector]* len (y_train)
 dev_y_hat_baseline = [top4_icd9_vector]* len (y_val)
 
 reload(lstm_model)
-#### build model
+##### build model
 l_model = lstm_model.build_lstm_model (input_seq_length=MAX_SEQ_LENGTH, max_vocab = MAX_VOCAB,
                              external_embeddings = True, embedding_trainable =True,
                              embedding_dim=EMBEDDING_DIM,embedding_matrix=EMBEDDING_MATRIX,                             

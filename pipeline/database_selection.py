@@ -1,4 +1,4 @@
-### This file contains the functions reextracting the database only for the top ICD codes
+###This file contains the functions reextracting the database only for the top ICD codes
 
 import numpy as np
 import pandas as pd
