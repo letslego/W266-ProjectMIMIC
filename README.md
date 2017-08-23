@@ -27,12 +27,12 @@ https://mimic.physionet.org/gettingstarted/access/
 
 | Model | Python module |
 | --- | --- |
-| LSTM |  |
-| CNN |  |
+| LSTM | [pipeline/lstm_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/lstm_model.py) |
+| CNN | [pipeline/icd9_cnn_model.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_model.py)  |
 | Attention Layer |[pipeline/attention_util.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/attention_util.py)  |
-| LSTM_ATT |   |
-| CNN_ATT |   |
-| Hierarchical LSTM Attention |  |
+| LSTM_ATT | [](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_lstm_att_model.py)   |
+| CNN_ATT | []()   |
+| Hierarchical LSTM Attention | []()  |
 
 
 ## Helper classes for Preprocessing
