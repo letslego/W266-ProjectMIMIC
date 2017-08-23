@@ -23,6 +23,8 @@ https://mimic.physionet.org/gettingstarted/access/
 | CNN for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_50K_run.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_50K_run.ipynb) |
 | CNN-ATT for first-level icd-9 codes in hierarchy | First-Level | 52.6K | - | [pipeline/icd9_cnn_att_50K_records.ipynb](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/icd9_cnn_att_50K_records.ipynb) |
 
+(Note: the different notebooks above would be re-factored as part of 'further work')
+
 ## Model Python modules
 
 | Model | Python module |
@@ -36,6 +38,12 @@ https://mimic.physionet.org/gettingstarted/access/
 
 
 ## Helper classes for Preprocessing
+
+| Helper | Python module |
+| --- | --- |
+| Filtering clinical-notes to keep the ones that have been assigned the top common N icd-9 codes (this is a multi-label),  removing any code from the label that is not in the top N | [pipeline/database_selection.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/database_selection.py) |
+| Three main methods: (1) Splits input file in training, valiation and test  (2) Replace leaf icd9-code with its grandparent in the first level  (3) Calculates and Diplay F1 scores for a set of possible thresholds| [pipeline/helpers.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/helpers.py) |
+| functions necessary to vectorize the ICD labels and text inputs| [pipeline/vectorization.py](https://github.com/letslego/W266-ProjectMIMIC/blob/master/pipeline/vectorization.py) |
 ## Appendix 
 | Model | Notebook |
 | --- | --- |
